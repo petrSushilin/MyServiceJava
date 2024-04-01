@@ -1,4 +1,4 @@
-package ru.medicaltickets.MyServiceJava.doctor;
+package user.doctor;
 
 import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;

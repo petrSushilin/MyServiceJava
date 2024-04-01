@@ -1,13 +1,10 @@
-package ru.medicaltickets.MyServiceJava.client;
+package user.client;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.medicaltickets.MyServiceJava.client.handlers.GetAllClientsHandler;
-import ru.medicaltickets.MyServiceJava.client.handlers.GetClientHandler;
-import ru.medicaltickets.MyServiceJava.client.handlers.PostClientHandler;
+import user.client.handlers.GetAllClientsHandler;
+import user.client.handlers.GetClientHandler;
+import user.client.handlers.PostClientHandler;
 
 @RequestMapping("client")
 @RestController

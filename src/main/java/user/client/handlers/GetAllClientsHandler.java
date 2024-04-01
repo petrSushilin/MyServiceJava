@@ -1,10 +1,6 @@
-package ru.medicaltickets.MyServiceJava.client.handlers;
+package user.client.handlers;
 
-import org.springframework.http.ResponseEntity;
-import ru.medicaltickets.MyServiceJava.global.abstracts.AbstractSubject;
-import ru.medicaltickets.MyServiceJava.client.ClientService;
-
-import java.util.List;
+import user.client.ClientService;
 
 public class GetAllClientsHandler {
     private final ClientService userService;

@@ -1,4 +1,4 @@
-package ru.medicaltickets.MyServiceJava.global.enums;
+package user.enums;
 
 public enum Gender {
     MALE,

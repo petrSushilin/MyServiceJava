@@ -2,8 +2,8 @@ package ru.medicaltickets.MyServiceJava.clinic;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.medicaltickets.MyServiceJava.client.handlers.GetAllClientsHandler;
-import ru.medicaltickets.MyServiceJava.client.handlers.PostClientHandler;
+import user.client.handlers.GetAllClientsHandler;
+import user.client.handlers.PostClientHandler;
 import ru.medicaltickets.MyServiceJava.clinic.handlers.GetClinicHandler;
 
 @RequestMapping("clinic")

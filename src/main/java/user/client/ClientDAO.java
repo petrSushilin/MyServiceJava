@@ -1,9 +1,9 @@
-package ru.medicaltickets.MyServiceJava.client;
+package user.client;
 
 import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.TableField;
-import ru.medicaltickets.MyServiceJava.global.abstracts.AbstractSubject;
+import user.AbstractUser;
 import ru.medicaltickets.MyServiceJava.jooq.tables.records.UsersRecord;
 
 import java.util.List;
@@ -23,7 +23,7 @@ public class ClientDAO {
             CLIENTS.LOGIN
     );
 
-    private static AbstractSubject buildClient(Record record) {
+    private static AbstractUser buildClient(Record record) {
         return Client.builder()
                 .ID(record.get(CLIENTS.ID))
                 .firstName(record.get(CLIENTS.FIRSTNAME))
@@ -41,11 +41,11 @@ public class ClientDAO {
                 .stream().findAny().isPresent();
     }
 
-    public AbstractSubject getUserByID(Long ID) {
+    public AbstractUser getUserByID(Long ID) {
         return null;
     }
 
-    public List<AbstractSubject> getAll() {
+    public List<AbstractUser> getAll() {
          context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)

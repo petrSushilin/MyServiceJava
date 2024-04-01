@@ -1,6 +1,6 @@
-package ru.medicaltickets.MyServiceJava.doctor.handlers;
+package user.doctor.handlers;
 
-import ru.medicaltickets.MyServiceJava.doctor.DoctorService;
+import user.doctor.DoctorService;
 
 public class GetDoctorHandler {
     private DoctorService doctorService;

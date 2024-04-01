@@ -1,4 +1,4 @@
-package ru.medicaltickets.MyServiceJava.doctor.enums;
+package user.doctor.enums;
 
 public enum DoctorsSpecialties {
     CARDIOVASCULAR_SURGEON,

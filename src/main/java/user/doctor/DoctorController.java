@@ -1,10 +1,10 @@
-package ru.medicaltickets.MyServiceJava.doctor;
+package user.doctor;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.medicaltickets.MyServiceJava.doctor.handlers.GetAllDoctorsHandler;
-import ru.medicaltickets.MyServiceJava.doctor.handlers.GetDoctorHandler;
-import ru.medicaltickets.MyServiceJava.doctor.handlers.PostDoctorHandler;
+import user.doctor.handlers.GetAllDoctorsHandler;
+import user.doctor.handlers.GetDoctorHandler;
+import user.doctor.handlers.PostDoctorHandler;
 
 @RequestMapping("doctor")
 @RestController

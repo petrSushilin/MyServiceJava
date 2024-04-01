@@ -1,11 +1,11 @@
-package ru.medicaltickets.MyServiceJava.doctor;
+package user.doctor;
 
 import org.jooq.DSLContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.medicaltickets.MyServiceJava.doctor.handlers.GetAllDoctorsHandler;
-import ru.medicaltickets.MyServiceJava.doctor.handlers.GetDoctorHandler;
-import ru.medicaltickets.MyServiceJava.doctor.handlers.PostDoctorHandler;
+import user.doctor.handlers.GetAllDoctorsHandler;
+import user.doctor.handlers.GetDoctorHandler;
+import user.doctor.handlers.PostDoctorHandler;
 
 @Configuration
 public class DoctorConfiguration {

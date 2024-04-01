@@ -1,11 +1,11 @@
-package ru.medicaltickets.MyServiceJava.client;
+package user.client;
 
 import org.jooq.DSLContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.medicaltickets.MyServiceJava.client.handlers.GetAllClientsHandler;
-import ru.medicaltickets.MyServiceJava.client.handlers.GetClientHandler;
-import ru.medicaltickets.MyServiceJava.client.handlers.PostClientHandler;
+import user.client.handlers.GetAllClientsHandler;
+import user.client.handlers.GetClientHandler;
+import user.client.handlers.PostClientHandler;
 
 @Configuration
 public class ClientConfiguration {

@@ -1,12 +1,12 @@
-package ru.medicaltickets.MyServiceJava.doctor;
+package user.doctor;
 
 import org.springframework.lang.NonNull;
-import ru.medicaltickets.MyServiceJava.doctor.enums.DoctorsSpecialties;
-import ru.medicaltickets.MyServiceJava.global.abstracts.AbstractSubject;
+import user.doctor.enums.DoctorsSpecialties;
+import user.AbstractUser;
 
 import java.util.List;
 
-public class Doctor extends AbstractSubject {
+public class Doctor extends AbstractUser {
     @NonNull
     private String licenceNumber;
     @NonNull
@@ -18,7 +18,7 @@ public class Doctor extends AbstractSubject {
         return new Doctor.Builder();
     }
 
-    public static class Builder extends AbstractSubject.Builder<Doctor.Builder> {
+    public static class Builder extends AbstractUser.Builder<Doctor.Builder> {
         @NonNull
         private String licenceNumber;
         @NonNull

@@ -2,9 +2,9 @@ package user.authentication;
 
 import org.springframework.lang.NonNull;
 
-public record AuthenticationInfo(Long id, String login, char[] password) {
-    public AuthenticationInfo.Builder builder() {
-        return new AuthenticationInfo.Builder();
+public record AuthenticationUser(Long id, String login, char[] password) {
+    public AuthenticationUser.Builder builder() {
+        return new AuthenticationUser.Builder();
     }
 
     public static class Builder {
@@ -14,25 +14,25 @@ public record AuthenticationInfo(Long id, String login, char[] password) {
         @NonNull
         private char[] password;
 
-        public AuthenticationInfo build() {
-            return new AuthenticationInfo(ID, login, password);
+        public AuthenticationUser build() {
+            return new AuthenticationUser(ID, login, password);
         }
 
-        public AuthenticationInfo.Builder self() {
+        public AuthenticationUser.Builder self() {
             return this;
         }
 
-        public AuthenticationInfo.Builder ID(Long ID) {
+        public AuthenticationUser.Builder ID(Long ID) {
             this.ID = ID;
             return self();
         }
 
-        public AuthenticationInfo.Builder login(String login) {
+        public AuthenticationUser.Builder login(String login) {
             this.login = login;
             return self();
         }
 
-        public AuthenticationInfo.Builder password(char[] password) {
+        public AuthenticationUser.Builder password(char[] password) {
             this.password = password;
             return self();
         }

@@ -1,11 +1,11 @@
-package ru.medicaltickets.MyServiceJava.client;
+package user.client;
 
 import org.springframework.lang.NonNull;
-import ru.medicaltickets.MyServiceJava.global.abstracts.AbstractSubject;
+import user.AbstractUser;
 
 import java.util.Date;
 
-public class Client extends AbstractSubject {
+public class Client extends AbstractUser {
     @NonNull
     private Date dateOfBirthday;
 
@@ -13,7 +13,7 @@ public class Client extends AbstractSubject {
         return new Client.Builder();
     }
 
-    public static class Builder extends AbstractSubject.Builder<Builder> {
+    public static class Builder extends AbstractUser.Builder<Builder> {
         @NonNull
         private Date dateOfBirthday;
 

@@ -1,7 +1,7 @@
-package ru.medicaltickets.MyServiceJava.client;
+package user.client;
 
 import org.springframework.http.ResponseEntity;
-import ru.medicaltickets.MyServiceJava.global.abstracts.AbstractSubject;
+import user.AbstractUser;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,14 +25,14 @@ public class ClientService {
 ----------------------------    GET METHODS    ----------------------------
 */
 
-    public Optional<AbstractSubject> getUser(Long userID) {
+    public Optional<AbstractUser> getUser(Long userID) {
         if (!isUserExists(userID)) {
             throw new RuntimeException("User is not found.");
         }
         return Optional.ofNullable(clientDAO.getUserByID(userID));
     }
 
-    public List<AbstractSubject> getAllUsers() {
+    public List<AbstractUser> getAllUsers() {
         return clientDAO.getAll();
     }
 

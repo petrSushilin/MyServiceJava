@@ -1,10 +1,10 @@
-package ru.medicaltickets.MyServiceJava.global.abstracts;
+package user;
 
 import org.springframework.lang.NonNull;
-import ru.medicaltickets.MyServiceJava.global.enums.Gender;
+import user.enums.Gender;
 
 
-public abstract class AbstractSubject {
+public abstract class AbstractUser {
     private Long ID;
     @NonNull
     private String login;
@@ -28,7 +28,7 @@ public abstract class AbstractSubject {
         @NonNull
         private Gender gender;
 
-        protected abstract AbstractSubject build();
+        protected abstract AbstractUser build();
 
         protected abstract T self();
 

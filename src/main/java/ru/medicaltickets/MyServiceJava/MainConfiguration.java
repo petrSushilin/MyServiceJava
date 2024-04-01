@@ -8,9 +8,9 @@ import org.jooq.impl.DefaultDSLContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import ru.medicaltickets.MyServiceJava.client.ClientConfiguration;
+import user.client.ClientConfiguration;
 import ru.medicaltickets.MyServiceJava.clinic.ClinicConfiguration;
-import ru.medicaltickets.MyServiceJava.doctor.DoctorConfiguration;
+import user.doctor.DoctorConfiguration;
 import ru.medicaltickets.MyServiceJava.ticket.TicketConfiguration;
 
 import javax.sql.DataSource;

@@ -1,8 +1,8 @@
-package ru.medicaltickets.MyServiceJava.client.handlers;
+package user.client.handlers;
 
 import org.springframework.http.ResponseEntity;
-import ru.medicaltickets.MyServiceJava.global.abstracts.AbstractSubject;
-import ru.medicaltickets.MyServiceJava.client.ClientService;
+import user.AbstractUser;
+import user.client.ClientService;
 
 import java.util.Optional;
 
@@ -14,7 +14,7 @@ public class GetClientHandler {
     }
 
     public ResponseEntity<?> handle(Long userID) {
-        Optional<AbstractSubject> optionalUser = userService.getUser(userID);
+        Optional<AbstractUser> optionalUser = userService.getUser(userID);
 
         return optionalUser.map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

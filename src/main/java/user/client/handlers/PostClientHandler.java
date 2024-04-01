@@ -1,9 +1,9 @@
-package ru.medicaltickets.MyServiceJava.client.handlers;
+package user.client.handlers;
 
 
 import org.springframework.http.ResponseEntity;
-import ru.medicaltickets.MyServiceJava.client.Client;
-import ru.medicaltickets.MyServiceJava.client.ClientService;
+import user.client.Client;
+import user.client.ClientService;
 
 public class PostClientHandler {
     private final ClientService clientService;

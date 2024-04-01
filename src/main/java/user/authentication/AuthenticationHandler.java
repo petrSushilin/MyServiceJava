@@ -1,6 +1,4 @@
-package ru.medicaltickets.MyServiceJava.authentication;
-
-import org.springframework.stereotype.Service;
+package user.authentication;
 
 public class AuthenticationHandler {
     private AuthenticationDAO authenticationDAO;
