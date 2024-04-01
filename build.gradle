@@ -1,0 +1,83 @@
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'org.postgresql:postgresql:42.6.0'
+	}
+}
+
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.4'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'org.jooq.jooq-codegen-gradle' version '3.19.6'
+	id 'org.flywaydb.flyway' version '8.2.0'
+}
+
+group = 'ru.medicaltickets.MyServiceJava'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '21'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-jooq'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'org.jooq:jooq:3.19.6'
+	implementation 'org.flywaydb:flyway-core'
+
+	runtimeOnly 'org.postgresql:postgresql'
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs += layout.buildDirectory.dir("generated/sources/jooq").get()
+		}
+	}
+}
+
+flyway {
+	url = 'jdbc:postgresql://localhost:5432/MyServiceDB'
+	user = 'admin'
+	password = 'password'
+	locations = ['classpath:db/migration']
+	validateMigrationNaming = true
+}
+
+flywayMigrate.dependsOn classes
+
+jooq {
+	configuration {
+		jdbc {
+			url = 'jdbc:postgresql://localhost:5432/MyServiceDB'
+			user = 'admin'
+			password = 'password'
+		}
+		generator {
+			database {
+				inputSchema = 'public'
+			}
+			target {
+				packageName = 'ru.medicaltickets.MyServiceJava.jooq'
+				directory = layout.buildDirectory.dir("generated/sources/jooq").get()
+			}
+		}
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

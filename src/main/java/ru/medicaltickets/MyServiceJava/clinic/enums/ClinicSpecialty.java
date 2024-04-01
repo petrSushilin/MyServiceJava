@@ -1,0 +1,10 @@
+package ru.medicaltickets.MyServiceJava.clinic.enums;
+
+public enum ClinicSpecialty {
+    CARDIOLOGY_POLYCLINIC,
+    ENT_POLYCLINIC,
+    GYNECOLOGY_POLYCLINIC,
+    GENERAL_MEDICINE_POLYCLINIC,
+    OPHTHALMOLOGY_POLYCLINIC,
+    PEDIATRICS_POLYCLINIC
+}
