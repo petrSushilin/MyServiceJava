@@ -1,4 +1,4 @@
-package ru.medicaltickets.MyServiceJava.authentication;
+package user.authentication;
 
 import org.springframework.lang.NonNull;
 
