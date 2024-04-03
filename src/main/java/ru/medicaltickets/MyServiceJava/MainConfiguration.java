@@ -8,14 +8,16 @@ import org.jooq.impl.DefaultDSLContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import user.client.ClientConfiguration;
+import ru.medicaltickets.MyServiceJava.user.account.AccountConfiguration;
+import ru.medicaltickets.MyServiceJava.user.client.ClientConfiguration;
 import ru.medicaltickets.MyServiceJava.clinic.ClinicConfiguration;
-import user.doctor.DoctorConfiguration;
-import ru.medicaltickets.MyServiceJava.ticket.TicketConfiguration;
+import ru.medicaltickets.MyServiceJava.user.doctor.DoctorConfiguration;
+import ru.medicaltickets.MyServiceJava.visit.ticket.TicketConfiguration;
 
 import javax.sql.DataSource;
 
 @Import({
+        AccountConfiguration.class,
         ClientConfiguration.class,
         DoctorConfiguration.class,
         ClinicConfiguration.class,

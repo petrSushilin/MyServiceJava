@@ -7,7 +7,7 @@ import ru.medicaltickets.MyServiceJava.clinic.enums.Region;
 
 import java.util.List;
 
-public record Clinic (Long ID, String name, Region region, City city, String street, String building,
+public record Clinic (Long ID, String officialName, Region region, City city, String street, String building,
                       List<ClinicSpecialty> clinicSpecialties) {
     public static Clinic.Builder builder() {
         return new Clinic.Builder();
@@ -15,7 +15,7 @@ public record Clinic (Long ID, String name, Region region, City city, String str
     public static class Builder {
         private Long ID;
         @NonNull
-        private String name;
+        private String officialName;
         @NonNull
         private Region region;
         @NonNull
@@ -32,15 +32,15 @@ public record Clinic (Long ID, String name, Region region, City city, String str
         }
 
         public Clinic build() {
-            return new Clinic(ID, name, region, city, street, building, clinicSpecialties);
+            return new Clinic(ID, officialName, region, city, street, building, clinicSpecialties);
         }
 
         public Clinic.Builder ID(Long ID) {
             this.ID = ID;
             return self();
         }
-        public Clinic.Builder name(@NonNull String name) {
-            this.name = name;
+        public Clinic.Builder name(@NonNull String officialName) {
+            this.officialName = officialName;
             return self();
         }
 

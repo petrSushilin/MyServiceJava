@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "core.clients.pension-age-threshold.female",
+      "type": "java.lang.String",
+      "description": "Description for core.clients.pension-age-threshold.female."
+    },
+    {
+      "name": "core.clients.pension-age-threshold.male",
+      "type": "java.lang.String",
+      "description": "Description for core.clients.pension-age-threshold.male."
+    }
+  ] }

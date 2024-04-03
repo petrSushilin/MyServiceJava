@@ -3,3 +3,9 @@ spring:
     url: jdbc:postgresql://localhost:5432/MyServiceDB
     username: admin
     password: password
+
+core:
+  clients:
+    pension-age-threshold:
+      male: 63
+      female: 58

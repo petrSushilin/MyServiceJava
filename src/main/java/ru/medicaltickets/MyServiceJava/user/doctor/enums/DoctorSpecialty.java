@@ -1,0 +1,15 @@
+package ru.medicaltickets.MyServiceJava.user.doctor.enums;
+
+public enum DoctorSpecialty {
+    CARDIOVASCULAR_SURGEON,
+    ENT_SPECIALIST,
+    ENT_SURGEON,
+    FAMILY_PHYSICIAN,
+    THERAPIST,
+    ENDOCRINOLOGIST,
+    GYNECOLOGIST,
+    OBSTETRICIAN_GYNECOLOGIST,
+    OPHTHALMIC_SURGEON,
+    OPHTHALMOLOGIST,
+    PEDIATRICIAN
+}
