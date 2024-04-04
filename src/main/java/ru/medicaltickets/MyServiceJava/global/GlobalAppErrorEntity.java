@@ -1,6 +1,6 @@
 package ru.medicaltickets.MyServiceJava.global;
 
-public class GlobalAppError {
+public class GlobalAppErrorEntity {
     private int statusCode;
     private String message;
 
@@ -20,10 +20,7 @@ public class GlobalAppError {
         this.message = message;
     }
 
-    public GlobalAppError() {
-    }
-
-    public GlobalAppError(int statusCode, String message) {
+    public GlobalAppErrorEntity(int statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
     }

@@ -5,14 +5,16 @@ import ru.medicaltickets.MyServiceJava.global.exceptions.IdentifierMismatchExcep
 import ru.medicaltickets.MyServiceJava.visit.ticket.Ticket;
 import ru.medicaltickets.MyServiceJava.visit.ticket.TicketService;
 
-public class PostTicketHandler {
+public class UpdateTicketHandler {
     private final TicketService ticketService;
 
-    public PostTicketHandler(TicketService ticketService) {
+    public UpdateTicketHandler(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
-    public ResponseEntity<?> handle(Ticket ticket) {
+    public ResponseEntity<?> handle(String ticketID, Ticket ticket) {
+        Long parsedTicketID = Long.valueOf(ticketID);
+        if (ticket.getID() != parsedTicketID) throw new IdentifierMismatchException("Attempt to throw a forbidden ID");
         return ticketService.post(ticket);
     }
 }

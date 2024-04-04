@@ -15,6 +15,10 @@ public class Ticket {
     @NonNull
     private LocalDate dateOfTicket;
 
+    public Long getID() {
+        return ID;
+    }
+
     public Ticket(Long ID, @NonNull Long clinicID, @NonNull Long doctorID, @NonNull LocalDate dateOfTicket) {
         this.ID = ID;
         this.clinicID = clinicID;

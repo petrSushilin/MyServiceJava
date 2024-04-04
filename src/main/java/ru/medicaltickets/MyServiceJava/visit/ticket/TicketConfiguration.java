@@ -28,13 +28,18 @@ public class TicketConfiguration {
     }
 
     @Bean
-    public GetAllTicketsByClientHandler getAllTicketsByClientHandler(TicketService ticketService) {
-        return new GetAllTicketsByClientHandler(ticketService);
+    public GetAllTicketsByClinicHandler getAllTicketsByClinicHandler(TicketService ticketService) {
+        return new GetAllTicketsByClinicHandler(ticketService);
     }
 
     @Bean
-    public GetAllTicketsByClinicHandler getAllTicketsByClinicHandler(TicketService ticketService) {
-        return new GetAllTicketsByClinicHandler(ticketService);
+    public GetAllTicketsByClinicAndDoctorsSpecialty getAllTicketsByClinicAndDoctorsSpecialty(TicketService ticketService) {
+        return new GetAllTicketsByClinicAndDoctorsSpecialty(ticketService);
+    }
+
+    @Bean
+    public GetAllTicketsByDoctorHandler getAllTicketsByDoctorHandler(TicketService ticketService) {
+        return new GetAllTicketsByDoctorHandler(ticketService);
     }
 
     @Bean
@@ -48,11 +53,20 @@ public class TicketConfiguration {
     }
 
     @Bean
+    public UpdateTicketHandler updateTicketHandler(TicketService ticketService) {
+        return new UpdateTicketHandler(ticketService);
+    }
+
+    @Bean
     public TicketController ticketController(GetAllTodayTicketsHandler getAllTodayTicketsHandler,
-                  GetAllMonthTicketsHandler getAllMonthTicketsHandler, GetAllTicketsByClientHandler getAllTicketsByClientHandler,
-                  GetAllTicketsByClinicHandler getAllTicketsByClinicHandler, GetTicketHandler getTicketHandler,
-                  PostTicketHandler postTicketHandler) {
-        return new TicketController(getAllTodayTicketsHandler, getAllMonthTicketsHandler, getAllTicketsByClientHandler,
-                                            getAllTicketsByClinicHandler, getTicketHandler, postTicketHandler);
+                        GetAllMonthTicketsHandler getAllMonthTicketsHandler,
+                        GetAllTicketsByClinicHandler getAllTicketsByClinicHandler,
+                        GetAllTicketsByClinicAndDoctorsSpecialty getAllTicketsByClinicAndDoctorsSpecialty,
+                        GetAllTicketsByDoctorHandler getAllTicketsByDoctorHandler,
+                        GetTicketHandler getTicketHandler,
+                        PostTicketHandler postTicketHandler,
+                        UpdateTicketHandler updateTicketHandler) {
+        return new TicketController(getAllTodayTicketsHandler, getAllMonthTicketsHandler, getAllTicketsByClinicHandler,
+                getAllTicketsByClinicAndDoctorsSpecialty, getAllTicketsByDoctorHandler, getTicketHandler, postTicketHandler, updateTicketHandler);
     }
 }

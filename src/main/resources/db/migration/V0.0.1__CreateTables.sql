@@ -43,7 +43,7 @@ create table cities (
     ID                      bigint generated always as identity primary key,
     city                    varchar(30)                   not null,
     region                  varchar(50)                   not null,
-    unique (city, region)
+    constraint unique_city_region unique (city, region)
 );
 
 create or replace function check_cities()
@@ -96,7 +96,8 @@ create table tickets (
     doctorID                bigint          not null,
     dateOfVisit             date            not null,
     foreign key (clinicID) references clinics (ID),
-    foreign key (doctorID) references doctors (ID)
+    foreign key (doctorID) references doctors (ID),
+    constraint unique_ticket unique (clinicID, doctorID, dateOfVisit)
 );
 
 create table appointments (
@@ -107,5 +108,6 @@ create table appointments (
     conditionStatus          varchar(12)     not null,
     constraint valid_activityStatus check ( appointments.conditionStatus in ('CREATED', 'CONFIRMATION', 'ACTIVE',
                                                                             'SUSPENDED', 'MISSED', 'DELETED') ),
+    constraint unique_appointment unique (ticketID, clientID),
     foreign key (ticketID) references tickets (ID)
 );

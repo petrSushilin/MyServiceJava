@@ -98,6 +98,4 @@ public class AppointmentDAO {
                 .where(CLINICS.ID.eq(clinicID).and(TICKETS.DATEOFVISIT.eq(dateOfVisit)))
                 .fetch(AppointmentDAO::buildAppointment);
     }
-
-
 }
