@@ -89,13 +89,53 @@ public class TicketDAO {
     }
 
     public List<Ticket> getByClinicAndDoctorsSpecialty(Long clinicID, DoctorSpecialty doctorSpecialty,
-                                                                                    LocalDate dateOfVisit) {
+                                                                                 LocalDate dateOfVisit) {
         return context
                 .select((SelectFieldOrAsterisk) TICKET_FIELDS, DOCTORS.SPECIALTY)
                 .from(TICKETS)
                 .join(DOCTORS).on(TICKETS.DOCTORID.eq(DOCTORS.ID))
                 .where(TICKETS.DATEOFVISIT.eq(dateOfVisit).and(TICKETS.CLINICID.eq(clinicID)
-                                .and(DOCTORS.SPECIALTY.eq(String.valueOf(doctorSpecialty)))))
+                        .and(DOCTORS.SPECIALTY.eq(String.valueOf(doctorSpecialty)))))
+                .fetch(TicketDAO::buildTicket);
+    }
+
+    public List<Ticket> getWeekScheduleByClinic(Long clinicID, LocalDate dateOfVisit) {
+        return context
+                .select(TICKET_FIELDS)
+                .from(TICKETS)
+                .where(TICKETS.DATEOFVISIT.between(dateOfVisit, dateOfVisit.plusWeeks(1)))
+                                                                    .and(TICKETS.CLINICID.eq(clinicID))
+                .fetch(TicketDAO::buildTicket);
+    }
+
+    public List<Ticket> getMonthScheduleByClinic(Long clinicID, LocalDate dateOfVisit) {
+        return context
+                .select(TICKET_FIELDS)
+                .from(TICKETS)
+                .where(TICKETS.DATEOFVISIT.between(dateOfVisit, dateOfVisit.plusMonths(1)))
+                                                                    .and(TICKETS.CLINICID.eq(clinicID))
+                .fetch(TicketDAO::buildTicket);
+    }
+
+    public List<Ticket> getWeekScheduleByClinicAndDoctorsSpecialty(Long clinicID, DoctorSpecialty doctorSpecialty,
+                                                                                    LocalDate dateOfVisit) {
+        return context
+                .select((SelectFieldOrAsterisk) TICKET_FIELDS, DOCTORS.SPECIALTY)
+                .from(TICKETS)
+                .join(DOCTORS).on(TICKETS.DOCTORID.eq(DOCTORS.ID))
+                .where(TICKETS.DATEOFVISIT.between(dateOfVisit, dateOfVisit.plusWeeks(1)))
+                        .and(TICKETS.CLINICID.eq(clinicID).and(DOCTORS.SPECIALTY.eq(String.valueOf(doctorSpecialty))))
+                .fetch(TicketDAO::buildTicket);
+    }
+
+    public List<Ticket> getMonthScheduleByClinicAndDoctorsSpecialty(Long clinicID, DoctorSpecialty doctorSpecialty,
+                                                                                    LocalDate dateOfVisit) {
+        return context
+                .select((SelectFieldOrAsterisk) TICKET_FIELDS, DOCTORS.SPECIALTY)
+                .from(TICKETS)
+                .join(DOCTORS).on(TICKETS.DOCTORID.eq(DOCTORS.ID))
+                .where(TICKETS.DATEOFVISIT.between(dateOfVisit, dateOfVisit.plusMonths(1)))
+                        .and(TICKETS.CLINICID.eq(clinicID).and(DOCTORS.SPECIALTY.eq(String.valueOf(doctorSpecialty))))
                 .fetch(TicketDAO::buildTicket);
     }
 

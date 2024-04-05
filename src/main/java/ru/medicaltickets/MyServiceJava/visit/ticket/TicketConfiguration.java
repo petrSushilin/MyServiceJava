@@ -18,8 +18,8 @@ public class TicketConfiguration {
     }
 
     @Bean
-    public GetAllTodayTicketsHandler getAllTodayTicketsHandler(TicketService ticketService) {
-        return new GetAllTodayTicketsHandler(ticketService);
+    public GetAllWeekTicketsHandler getAllWeekTicketsHandler(TicketService ticketService) {
+        return new GetAllWeekTicketsHandler(ticketService);
     }
 
     @Bean
@@ -58,7 +58,7 @@ public class TicketConfiguration {
     }
 
     @Bean
-    public TicketController ticketController(GetAllTodayTicketsHandler getAllTodayTicketsHandler,
+    public TicketController ticketController(GetAllWeekTicketsHandler getAllWeekTicketsHandler,
                         GetAllMonthTicketsHandler getAllMonthTicketsHandler,
                         GetAllTicketsByClinicHandler getAllTicketsByClinicHandler,
                         GetAllTicketsByClinicAndDoctorsSpecialty getAllTicketsByClinicAndDoctorsSpecialty,
@@ -66,7 +66,7 @@ public class TicketConfiguration {
                         GetTicketHandler getTicketHandler,
                         PostTicketHandler postTicketHandler,
                         UpdateTicketHandler updateTicketHandler) {
-        return new TicketController(getAllTodayTicketsHandler, getAllMonthTicketsHandler, getAllTicketsByClinicHandler,
+        return new TicketController(getAllWeekTicketsHandler, getAllMonthTicketsHandler, getAllTicketsByClinicHandler,
                 getAllTicketsByClinicAndDoctorsSpecialty, getAllTicketsByDoctorHandler, getTicketHandler, postTicketHandler, updateTicketHandler);
     }
 }

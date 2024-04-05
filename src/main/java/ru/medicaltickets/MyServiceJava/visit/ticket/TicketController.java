@@ -9,11 +9,11 @@ import ru.medicaltickets.MyServiceJava.visit.ticket.handlers.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@RequestMapping("ticket")
+@RequestMapping("tickets")
 @RestController
 @Validated
 public class TicketController {
-    private final GetAllTodayTicketsHandler getAllTodayTicketsHandler;
+    private final GetAllWeekTicketsHandler getAllWeekTicketsHandler;
     private final GetAllMonthTicketsHandler getAllMonthTicketsHandler;
     private final GetAllTicketsByClinicHandler getAllTicketsByClinicHandler;
     private final GetAllTicketsByClinicAndDoctorsSpecialty getAllTicketsByClinicAndDoctorsSpecialty;
@@ -22,7 +22,7 @@ public class TicketController {
     private final PostTicketHandler postTicketHandler;
     private final UpdateTicketHandler updateTicketHandler;
 
-    public TicketController(GetAllTodayTicketsHandler getAllTodayTicketsHandler,
+    public TicketController(GetAllWeekTicketsHandler getAllWeekTicketsHandler,
                             GetAllMonthTicketsHandler getAllMonthTicketsHandler,
                             GetAllTicketsByClinicHandler getAllTicketsByClinicHandler,
                             GetAllTicketsByClinicAndDoctorsSpecialty getAllTicketsByClinicAndDoctorsSpecialty,
@@ -30,7 +30,7 @@ public class TicketController {
                             GetTicketHandler getTicketHandler,
                             PostTicketHandler postTicketHandler,
                             UpdateTicketHandler updateTicketHandler) {
-        this.getAllTodayTicketsHandler = getAllTodayTicketsHandler;
+        this.getAllWeekTicketsHandler = getAllWeekTicketsHandler;
         this.getAllMonthTicketsHandler = getAllMonthTicketsHandler;
         this.getAllTicketsByClinicHandler = getAllTicketsByClinicHandler;
         this.getAllTicketsByClinicAndDoctorsSpecialty = getAllTicketsByClinicAndDoctorsSpecialty;
@@ -40,42 +40,68 @@ public class TicketController {
         this.updateTicketHandler = updateTicketHandler;
     }
 
-    @GetMapping("/ticket{ID}")
+    @GetMapping("/ticket{ID}/schedule")
     public ResponseEntity<?> getSingle(@PathVariable("ID") String ticketID) {
         return getTicketHandler.handle(ticketID);
     }
 
-    @GetMapping("/clinic{clinicID}")
+    @GetMapping("/clinic{clinicID}/schedule")
     public ResponseEntity<List<?>> getAllByClinic(@PathVariable("clinicID") String clinicID) {
         return getAllTicketsByClinicHandler.handle(clinicID);
     }
 
-    @GetMapping("/clinic{clinicID}")
+    @GetMapping("/clinic{clinicID}/schedule")
     public ResponseEntity<List<?>> getAllByClinic(@PathVariable("clinicID") String clinicID,
                                                   @RequestParam String dateOfVisit) {
         return getAllTicketsByClinicHandler.handle(clinicID, dateOfVisit);
     }
 
-    @GetMapping("/clinicID{clinicID}")
+    @GetMapping("/clinicID{clinicID}/schedule")
     public ResponseEntity<List<?>> getAllTicketsByClinicAndDoctorsSpecialty(@PathVariable("clinicID") String clinicID,
-                                                                      @RequestParam String doctorSpecialty) {
+                                                                            @RequestParam String doctorSpecialty) {
         return getAllTicketsByClinicAndDoctorsSpecialty.handle(clinicID, doctorSpecialty);
     }
 
-    @GetMapping("/clinicID{clinicID}")
+    @GetMapping("/clinicID{clinicID}/schedule")
     public ResponseEntity<List<?>> getAllTicketsByClinicAndDoctorsSpecialty(@PathVariable("clinicID") String clinicID,
                                                                       @RequestParam String doctorSpecialty,
                                                                       @RequestParam String dateOfVisit) {
         return getAllTicketsByClinicAndDoctorsSpecialty.handle(clinicID, doctorSpecialty, dateOfVisit);
     }
 
-    @GetMapping("/clinic{clinicID}/doctor{doctorID}")
+    @GetMapping("/clinic{clinicID}/schedule/week")
+    public ResponseEntity<List<?>> getWeekScheduleByClinic(@PathVariable("clinicID") String clinicID,
+                                                                          @RequestParam String dateOfMonday) {
+        return getAllWeekTicketsHandler.handle(clinicID, dateOfMonday);
+    }
+
+    @GetMapping("/clinicID{clinicID}/schedule/week")
+    public ResponseEntity<List<?>> getWeekScheduleByClinicAndDoctorsSpecialty(@PathVariable("clinicID") String clinicID,
+                                                                            @RequestParam String doctorSpecialty,
+                                                                            @RequestParam String dateOfMonday) {
+        return getAllWeekTicketsHandler.handle(clinicID, doctorSpecialty, dateOfMonday);
+    }
+
+    @GetMapping("/clinic{clinicID}/schedule/month")
+    public ResponseEntity<List<?>> getMonthScheduleByClinic(@PathVariable("clinicID") String clinicID,
+                                                                            @RequestParam String date) {
+        return getAllMonthTicketsHandler.handle(clinicID, date);
+    }
+
+    @GetMapping("/clinicID{clinicID}/schedule/month")
+    public ResponseEntity<List<?>> getMonthScheduleByClinicAndDoctorsSpecialty(@PathVariable("clinicID") String clinicID,
+                                                                              @RequestParam String doctorSpecialty,
+                                                                              @RequestParam String date) {
+        return getAllMonthTicketsHandler.handle(clinicID, doctorSpecialty, date);
+    }
+
+    @GetMapping("/clinic{clinicID}/doctor{doctorID}/schedule")
     public ResponseEntity<List<?>> getAllByDoctor(@PathVariable("clinicID") String clinicID,
                                                   @PathVariable("doctorID") String doctorID) {
         return getAllTicketsByDoctorHandler.handle(clinicID, doctorID);
     }
 
-    @GetMapping("/clinic{clinicID}/doctor{doctorID}")
+    @GetMapping("/clinic{clinicID}/doctor{doctorID}/schedule")
     public ResponseEntity<List<?>> getAllByDoctor(@PathVariable("clinicID") String clinicID,
                                                   @PathVariable("doctorID") String doctorID,
                                                   @RequestParam String dateOfVisit) {

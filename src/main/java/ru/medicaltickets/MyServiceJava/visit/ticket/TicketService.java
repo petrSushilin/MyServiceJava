@@ -46,6 +46,26 @@ public class TicketService {
                 .body(ticketDAO.getByClinicAndDoctorsSpecialty(clinicID, doctorSpecialty, dateOfVisit));
     }
 
+    public ResponseEntity<List<?>> getWeekScheduleByClinic(Long clinicID, LocalDate dateOfVisit) {
+        return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getWeekScheduleByClinic(clinicID, dateOfVisit));
+    }
+
+    public ResponseEntity<List<?>> getWeekScheduleByClinicAndDoctorsSpecialty(Long clinicID,
+                                                            DoctorSpecialty doctorSpecialty, LocalDate dateOfVisit) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ticketDAO.getWeekScheduleByClinicAndDoctorsSpecialty(clinicID, doctorSpecialty, dateOfVisit));
+    }
+
+    public ResponseEntity<List<?>> getMonthScheduleByClinic(Long clinicID, LocalDate dateOfVisit) {
+        return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getMonthScheduleByClinic(clinicID, dateOfVisit));
+    }
+
+    public ResponseEntity<List<?>> getMonthScheduleByClinicAndDoctorsSpecialty(Long clinicID,
+                                                             DoctorSpecialty doctorSpecialty, LocalDate dateOfVisit) {
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ticketDAO.getMonthScheduleByClinicAndDoctorsSpecialty(clinicID, doctorSpecialty, dateOfVisit));
+    }
+
     public ResponseEntity<List<?>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getAll());
     }

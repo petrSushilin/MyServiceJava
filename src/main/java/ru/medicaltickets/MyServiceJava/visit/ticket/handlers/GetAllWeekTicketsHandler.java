@@ -1,30 +1,31 @@
 package ru.medicaltickets.MyServiceJava.visit.ticket.handlers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.medicaltickets.MyServiceJava.user.doctor.enums.DoctorSpecialty;
 import ru.medicaltickets.MyServiceJava.visit.ticket.TicketService;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.List;
 
-public class GetAllMonthTicketsHandler {
+public class GetAllWeekTicketsHandler {
     private final TicketService ticketService;
 
-    public GetAllMonthTicketsHandler(TicketService ticketService) {
+    public GetAllWeekTicketsHandler(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
     public ResponseEntity<List<?>> handle(String clinicID, String dateOfMonday) {
         Long parsedClinicID = Long.valueOf(clinicID);
         LocalDate parsedDateOfMonday = LocalDate.parse(dateOfMonday);
-        return ticketService.getMonthScheduleByClinic(parsedClinicID, parsedDateOfMonday);
+        return ticketService.getWeekScheduleByClinic(parsedClinicID, parsedDateOfMonday);
     }
 
-    public ResponseEntity<List<?>> handle(String clinicID, String date, String doctorSpecialty) {
+    public ResponseEntity<List<?>> handle(String clinicID, String dateOfMonday, String doctorSpecialty) {
         Long parsedClinicID = Long.valueOf(clinicID);
-        LocalDate parsedDate = LocalDate.parse(date);
+        LocalDate parsedDateOfMonday = LocalDate.parse(dateOfMonday);
         DoctorSpecialty parsedDoctorSpecialty = DoctorSpecialty.valueOf(doctorSpecialty);
-        return ticketService.getMonthScheduleByClinicAndDoctorsSpecialty(parsedClinicID, parsedDoctorSpecialty, parsedDate);
+        return ticketService.getWeekScheduleByClinicAndDoctorsSpecialty(parsedClinicID, parsedDoctorSpecialty,
+                                                                                                parsedDateOfMonday);
     }
 }
