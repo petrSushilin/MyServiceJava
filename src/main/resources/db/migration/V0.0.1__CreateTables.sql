@@ -3,8 +3,7 @@
 create table accounts (
     ID                      bigint generated always as identity primary key,
     login                   varchar(16)     unique          not null,
-    password                varchar(30)                     not null,
-    constraint valid_login check (login ~ '^[a-zA-Z0-9.]{6,16}$')
+    password                varchar(30)                     not null
 );
 -- drop table clients cascade;
 create table clients (
@@ -31,8 +30,6 @@ create table doctors (
     specialty               varchar(100)                    not null,
     foreign key (accountID) references accounts (ID),
     constraint valid_gender check ( doctors.gender in ('MALE', 'FEMALE') ),
-    constraint valid_firstName check ( doctors.firstName ~ '^[a-zA-Zа-яА-Я]' ),
-    constraint valid_lastName check ( doctors.lastName ~ '^[a-zA-Zа-яА-Я]' ),
     constraint valid_specialty check ( doctors.specialty in ('CARDIOVASCULAR_SURGEON', 'ENT_SPECIALIST', 'ENT_SURGEON',
                             'FAMILY_PHYSICIAN', 'THERAPIST', 'ENDOCRINOLOGIST', 'GYNECOLOGIST', 'OBSTETRICIAN_GYNECOLOGIST',
                             'OPHTHALMIC_SURGEON', 'OPHTHALMOLOGIST', 'PEDIATRICIAN') )

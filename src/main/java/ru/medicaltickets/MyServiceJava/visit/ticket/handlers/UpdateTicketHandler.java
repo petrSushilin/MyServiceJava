@@ -1,5 +1,6 @@
 package ru.medicaltickets.MyServiceJava.visit.ticket.handlers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.medicaltickets.MyServiceJava.global.exceptions.IdentifierMismatchException;
 import ru.medicaltickets.MyServiceJava.visit.ticket.Ticket;
@@ -14,7 +15,7 @@ public class UpdateTicketHandler {
 
     public ResponseEntity<?> handle(String ticketID, Ticket ticket) {
         Long parsedTicketID = Long.valueOf(ticketID);
-        if (ticket.getID() != parsedTicketID) throw new IdentifierMismatchException("Attempt to throw a forbidden ID");
-        return ticketService.post(ticket);
+        if (!ticket.getID().equals(parsedTicketID)) throw new IdentifierMismatchException("Attempt to throw a forbidden ID");
+        return ResponseEntity.status(HttpStatus.OK).body(ticketService.post(ticket));
     }
 }
