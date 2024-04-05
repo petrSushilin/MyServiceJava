@@ -9,3 +9,6 @@ core:
     pension-age-threshold:
       male: 63
       female: 58
+
+spring.security.user.name: admin
+spring.security.user.password: password

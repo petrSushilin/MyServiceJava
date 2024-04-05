@@ -1,5 +1,6 @@
 package ru.medicaltickets.MyServiceJava.visit.ticket.handlers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.medicaltickets.MyServiceJava.global.exceptions.IdentifierMismatchException;
 import ru.medicaltickets.MyServiceJava.visit.ticket.Ticket;
@@ -13,6 +14,6 @@ public class PostTicketHandler {
     }
 
     public ResponseEntity<?> handle(Ticket ticket) {
-        return ticketService.post(ticket);
+        return ResponseEntity.status(HttpStatus.OK).body(ticketService.post(ticket));
     }
 }

@@ -4,20 +4,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.medicaltickets.MyServiceJava.visit.ticket.TicketService;
 
-import java.util.List;
-
-public class GetTicketHandler {
+public class GetSingleTicketHandler {
     private final TicketService ticketService;
 
-    public GetTicketHandler(TicketService ticketService) {
+    public GetSingleTicketHandler(TicketService ticketService) {
         this.ticketService = ticketService;
     }
 
     public ResponseEntity<?> handle(String ticketID) {
-        return ticketService.getSingle(Long.valueOf(ticketID));
-    }
-
-    public ResponseEntity<List<?>> handle() {
-        return ticketService.getAll();
+        return ResponseEntity.status(HttpStatus.OK).body(ticketService.getSingle(Long.valueOf(ticketID)));
     }
 }

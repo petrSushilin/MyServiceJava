@@ -16,7 +16,7 @@ import java.time.format.DateTimeParseException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(NumberFormatException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<GlobalAppErrorEntity> handleNumberFormatException(NumberFormatException ex) {
         return new ResponseEntity<>(new GlobalAppErrorEntity(
                 HttpStatus.BAD_REQUEST.value(), ex.getMessage()), HttpStatus.BAD_REQUEST);

@@ -3,6 +3,7 @@ package ru.medicaltickets.MyServiceJava.visit.appointment;
 import org.springframework.lang.NonNull;
 import ru.medicaltickets.MyServiceJava.visit.appointment.enums.ConditionStatus;
 import ru.medicaltickets.MyServiceJava.visit.ticket.Ticket;
+import jakarta.validation.constraints.Pattern;
 
 import java.time.LocalDate;
 
@@ -11,10 +12,12 @@ public class Appointment extends Ticket {
     private Long TicketID;
     @NonNull
     private Long clientID;
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]")
     @NonNull
     private String fullNameOfDoctor;
     @NonNull
     private String doctorSpecialty;
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]")
     @NonNull
     private String fullNameOfClient;
     @NonNull
