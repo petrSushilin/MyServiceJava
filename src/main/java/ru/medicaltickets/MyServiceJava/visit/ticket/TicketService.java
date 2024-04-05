@@ -3,6 +3,7 @@ package ru.medicaltickets.MyServiceJava.visit.ticket;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import ru.medicaltickets.MyServiceJava.global.exceptions.InvalidDateSearchException;
 import ru.medicaltickets.MyServiceJava.user.doctor.enums.DoctorSpecialty;
 
 import java.time.LocalDate;
@@ -25,6 +26,8 @@ public class TicketService {
     }
 
     public ResponseEntity<List<?>> getByClinic(Long clinicID, LocalDate dateOfVisit) {
+        if (dateOfVisit.isBefore(LocalDate.now().minusDays(1)))
+            throw new InvalidDateSearchException("Date is invalid");
         return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getByClinic(clinicID, dateOfVisit));
     }
 
@@ -33,6 +36,8 @@ public class TicketService {
     }
 
     public ResponseEntity<List<?>> getByDoctor(Long clinicID, Long doctorID, LocalDate dateOfVisit) {
+        if (dateOfVisit.isBefore(LocalDate.now().minusDays(1)))
+            throw new InvalidDateSearchException("Date is invalid");
         return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getByDoctor(clinicID, doctorID, dateOfVisit));
     }
 
@@ -42,28 +47,38 @@ public class TicketService {
     }
     public ResponseEntity<List<?>> getByClinicAndDoctorsSpecialty(Long clinicID, DoctorSpecialty doctorSpecialty,
                                                                                             LocalDate dateOfVisit) {
+        if (dateOfVisit.isBefore(LocalDate.now().minusDays(1)))
+            throw new InvalidDateSearchException("Date is invalid");
         return ResponseEntity.status(HttpStatus.OK)
                 .body(ticketDAO.getByClinicAndDoctorsSpecialty(clinicID, doctorSpecialty, dateOfVisit));
     }
 
-    public ResponseEntity<List<?>> getWeekScheduleByClinic(Long clinicID, LocalDate dateOfVisit) {
-        return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getWeekScheduleByClinic(clinicID, dateOfVisit));
+    public ResponseEntity<List<?>> getWeekScheduleByClinic(Long clinicID, LocalDate dateOfMonday) {
+        if (dateOfMonday.isBefore(LocalDate.now().minusWeeks(1)))
+            throw new InvalidDateSearchException("Date is invalid");
+        return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getWeekScheduleByClinic(clinicID, dateOfMonday));
     }
 
     public ResponseEntity<List<?>> getWeekScheduleByClinicAndDoctorsSpecialty(Long clinicID,
-                                                            DoctorSpecialty doctorSpecialty, LocalDate dateOfVisit) {
+                                                            DoctorSpecialty doctorSpecialty, LocalDate dateOfMonday) {
+        if (dateOfMonday.isBefore(LocalDate.now().minusWeeks(1)))
+            throw new InvalidDateSearchException("Date is invalid");
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ticketDAO.getWeekScheduleByClinicAndDoctorsSpecialty(clinicID, doctorSpecialty, dateOfVisit));
+                .body(ticketDAO.getWeekScheduleByClinicAndDoctorsSpecialty(clinicID, doctorSpecialty, dateOfMonday));
     }
 
-    public ResponseEntity<List<?>> getMonthScheduleByClinic(Long clinicID, LocalDate dateOfVisit) {
-        return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getMonthScheduleByClinic(clinicID, dateOfVisit));
+    public ResponseEntity<List<?>> getMonthScheduleByClinic(Long clinicID, LocalDate date) {
+        if (date.isBefore(LocalDate.now().minusMonths(1)))
+            throw new InvalidDateSearchException("Date is invalid");
+        return ResponseEntity.status(HttpStatus.OK).body(ticketDAO.getMonthScheduleByClinic(clinicID, date));
     }
 
     public ResponseEntity<List<?>> getMonthScheduleByClinicAndDoctorsSpecialty(Long clinicID,
-                                                             DoctorSpecialty doctorSpecialty, LocalDate dateOfVisit) {
+                                                             DoctorSpecialty doctorSpecialty, LocalDate date) {
+        if (date.isBefore(LocalDate.now().minusMonths(1)))
+            throw new InvalidDateSearchException("Date is invalid");
         return ResponseEntity.status(HttpStatus.OK)
-                .body(ticketDAO.getMonthScheduleByClinicAndDoctorsSpecialty(clinicID, doctorSpecialty, dateOfVisit));
+                .body(ticketDAO.getMonthScheduleByClinicAndDoctorsSpecialty(clinicID, doctorSpecialty, date));
     }
 
     public ResponseEntity<List<?>> getAll() {
