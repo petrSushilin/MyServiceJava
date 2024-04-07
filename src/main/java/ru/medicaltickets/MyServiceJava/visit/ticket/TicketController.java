@@ -44,8 +44,8 @@ public class TicketController {
         this.updateTicketHandler = updateTicketHandler;
     }
 
-    @GetMapping("/ticket{ID}")
-    public ResponseEntity<?> getSingle(@PathVariable("ID") String ticketID) {
+    @GetMapping("/ticket{ticketID}")
+    public ResponseEntity<?> getSingle(@PathVariable("ticketID") String ticketID) {
         return getSingleTicketHandler.handle(ticketID);
     }
 
@@ -101,8 +101,8 @@ public class TicketController {
         return postTicketHandler.handle(ticket);
     }
 
-    @PostMapping("/ticket{ID}")
-    public ResponseEntity<?> update(@PathVariable("ID") String ticketID,
+    @PostMapping("/ticket{ticketID}")
+    public ResponseEntity<?> update(@PathVariable("ticketID") String ticketID,
                                     @RequestBody Ticket ticket) {
         return updateTicketHandler.handle(ticketID, ticket);
     }

@@ -18,6 +18,11 @@ public class Doctor extends AbstractUser {
         return new Doctor.Builder();
     }
 
+    @Override
+    public Long getID() {
+        return super.getID();
+    }
+
     public static class Builder extends AbstractUser.Builder<Doctor.Builder> {
         @NonNull
         private String licenceNumber;

@@ -52,7 +52,7 @@ public class DoctorDAO {
                 .stream().findFirst().isPresent();
     }
 
-    public Doctor getBy(Long ID) {
+    public Doctor getSingle(Long ID) {
         return context
                 .select(DOCTOR_FIELDS)
                 .from(DOCTORS)
@@ -60,7 +60,7 @@ public class DoctorDAO {
                 .fetchSingle(DoctorDAO::buildDoctor);
     }
 
-    public List<Doctor> getByParams(String fullName) {
+    public List<Doctor> getByFullName(String fullName) {
         return context
                 .select(DOCTOR_FIELDS)
                 .from(DOCTORS)
@@ -69,14 +69,7 @@ public class DoctorDAO {
                 .fetch(DoctorDAO::buildDoctor);
     }
 
-    public List<Doctor> getAll() {
-        return context
-                .select(DOCTOR_FIELDS)
-                .from(DOCTORS)
-                .fetch(DoctorDAO::buildDoctor);
-    }
-
-    public List<Doctor> getAllWithSpecialty(DoctorSpecialty specialty) {
+    public List<Doctor> getWithSpecialty(DoctorSpecialty specialty) {
         return context
                 .select(DOCTOR_FIELDS)
                 .from(DOCTORS)
@@ -84,7 +77,7 @@ public class DoctorDAO {
                 .fetch(DoctorDAO::buildDoctor);
     }
 
-    public List<Doctor> getAllWithSpecialty(DoctorSpecialty specialty, int experience) {
+    public List<Doctor> getWithSpecialty(DoctorSpecialty specialty, int experience) {
         return context
                 .select(DOCTOR_FIELDS)
                 .from(DOCTORS)

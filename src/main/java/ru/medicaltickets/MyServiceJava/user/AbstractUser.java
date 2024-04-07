@@ -1,5 +1,6 @@
 package ru.medicaltickets.MyServiceJava.user;
 
+import jakarta.validation.constraints.Pattern;
 import org.springframework.lang.NonNull;
 import ru.medicaltickets.MyServiceJava.user.enums.Gender;
 
@@ -8,8 +9,10 @@ public abstract class AbstractUser {
     private Long ID;
     @NonNull
     private Long accountID;
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]")
     @NonNull
     private String firstName;
+    @Pattern(regexp = "^[a-zA-Zа-яА-Я]")
     @NonNull
     private String lastName;
     @NonNull
@@ -17,6 +20,10 @@ public abstract class AbstractUser {
 
     public static Builder builder() {
         return null;
+    }
+
+    public Long getID() {
+        return this.ID;
     }
 
     protected abstract static class Builder<T extends Builder<T>> {

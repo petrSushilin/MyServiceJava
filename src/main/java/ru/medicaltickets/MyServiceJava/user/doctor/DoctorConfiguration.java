@@ -3,9 +3,7 @@ package ru.medicaltickets.MyServiceJava.user.doctor;
 import org.jooq.DSLContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.medicaltickets.MyServiceJava.user.doctor.handlers.GetAllDoctorsHandler;
-import ru.medicaltickets.MyServiceJava.user.doctor.handlers.GetDoctorHandler;
-import ru.medicaltickets.MyServiceJava.user.doctor.handlers.PostDoctorHandler;
+import ru.medicaltickets.MyServiceJava.user.doctor.handlers.*;
 
 @Configuration
 public class DoctorConfiguration {
@@ -20,13 +18,23 @@ public class DoctorConfiguration {
     }
 
     @Bean
-    public GetAllDoctorsHandler getAllDoctorsHandler (DoctorService doctorService) {
-        return new GetAllDoctorsHandler(doctorService);
+    public GetDoctorHandler getDoctorHandler (DoctorService doctorService) {
+        return new GetDoctorHandler(doctorService);
     }
 
     @Bean
-    public GetDoctorHandler getDoctorHandler (DoctorService doctorService) {
-        return new GetDoctorHandler(doctorService);
+    public GetDoctorsFullNameHandler getAllDoctorsHandler (DoctorService doctorService) {
+        return new GetDoctorsFullNameHandler(doctorService);
+    }
+
+    @Bean
+    public GetDoctorsSpecialtyAndExperienceHandler getDoctorsSpecialtyAndExperienceHandler (DoctorService doctorService) {
+        return new GetDoctorsSpecialtyAndExperienceHandler(doctorService);
+    }
+
+    @Bean
+    public GetDoctorsSpecialtyHandler getDoctorsSpecialtyHandler (DoctorService doctorService) {
+        return new GetDoctorsSpecialtyHandler(doctorService);
     }
 
     @Bean
@@ -35,8 +43,18 @@ public class DoctorConfiguration {
     }
 
     @Bean
-    public DoctorController doctorController (GetAllDoctorsHandler getAllDoctorsHandler, GetDoctorHandler getDoctorHandler,
-                                              PostDoctorHandler postDoctorHandler) {
-        return new DoctorController(getAllDoctorsHandler, getDoctorHandler, postDoctorHandler);
+    public UpdateDoctorHandler updateDoctorHandler (DoctorService doctorService) {
+        return new UpdateDoctorHandler(doctorService);
+    }
+
+    @Bean
+    public DoctorController doctorController (GetDoctorHandler getDoctorHandler,
+                                              GetDoctorsFullNameHandler getDoctorsFullNameHandler,
+                                              GetDoctorsSpecialtyHandler getDoctorsSpecialtyHandler,
+                                              GetDoctorsSpecialtyAndExperienceHandler getDoctorsSpecialtyAndExperienceHandler,
+                                              PostDoctorHandler postDoctorHandler,
+                                              UpdateDoctorHandler updateDoctorHandler) {
+        return new DoctorController(getDoctorHandler, getDoctorsFullNameHandler, getDoctorsSpecialtyHandler,
+                                        getDoctorsSpecialtyAndExperienceHandler, postDoctorHandler, updateDoctorHandler);
     }
 }

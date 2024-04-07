@@ -61,8 +61,8 @@ public class AppointmentController {
         this.updateAppointmentHandler = updateAppointmentHandler;
     }
 
-    @GetMapping("/appointment{ID}")
-    public ResponseEntity<?> getSingle(@PathVariable("ID") String ticketID) {
+    @GetMapping("/appointment{appointmentID}")
+    public ResponseEntity<?> getSingle(@PathVariable("appointmentID") String ticketID) {
         return getSingleAppointmentHandler.handle(ticketID);
     }
 
@@ -161,9 +161,9 @@ public class AppointmentController {
         return postAppointmentHandler.handle(appointment);
     }
 
-    @PostMapping("/appointment{ID}")
-    public ResponseEntity<?> update(@PathVariable("ID") String ticketID,
-                                    @RequestBody Ticket ticket) {
-        return updateAppointmentHandler.handle(ticketID, ticket);
+    @PostMapping("/appointment{appointmentID}")
+    public ResponseEntity<?> update(@PathVariable("appointmentID") String ticketID,
+                                    @RequestBody Appointment appointment) {
+        return updateAppointmentHandler.handle(ticketID, appointment);
     }
 }
