@@ -12,6 +12,8 @@ import java.util.List;
 
 import static org.jooq.impl.DSL.extract;
 import static ru.medicaltickets.MyServiceJava.jooq.Tables.CLIENTS;
+import static ru.medicaltickets.MyServiceJava.user.client.ClientProperties.femaleAgeThreshold;
+import static ru.medicaltickets.MyServiceJava.user.client.ClientProperties.maleAgeThreshold;
 
 public class ClientDAO {
     private final DSLContext context;
@@ -46,7 +48,7 @@ public class ClientDAO {
                 .stream().findAny().isPresent();
     }
 
-    public Client getBy(Long ID) {
+    public Client getSingle(Long ID) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
@@ -54,7 +56,7 @@ public class ClientDAO {
                 .fetchSingle(ClientDAO::buildClient);
     }
 
-    public List<Client> getByParams(String fullName) {
+    public List<Client> getByFullName(String fullName) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
@@ -63,7 +65,7 @@ public class ClientDAO {
                 .fetch(ClientDAO::buildClient);
     }
 
-    public List<Client> getByParams(String lastName, Gender gender) {
+    public List<Client> getByLastNameAndGender(String lastName, Gender gender) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
@@ -71,7 +73,7 @@ public class ClientDAO {
                 .fetch(ClientDAO::buildClient);
     }
 
-    public List<Client> getByParams(Gender gender, LocalDate birthdate) {
+    public List<Client> getByGenderAndBirthdate(Gender gender, LocalDate birthdate) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
@@ -79,7 +81,7 @@ public class ClientDAO {
                 .fetch(ClientDAO::buildClient);
     }
 
-    public List<Client> getByParams(String fullName, LocalDate birthdate) {
+    public List<Client> getByFullNameAndBirthdate(String fullName, LocalDate birthdate) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
@@ -89,15 +91,7 @@ public class ClientDAO {
                 .fetch(ClientDAO::buildClient);
     }
 
-    public List<Client> getAll() {
-         return context
-                .select(CLIENT_FIELDS)
-                .from(CLIENTS)
-                .fetch(ClientDAO::buildClient);
-    }
-
-
-    public List<Client> getAllByAgeElder(LocalDate birthdate) {
+    public List<Client> getElderThen(LocalDate birthdate) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
@@ -105,7 +99,7 @@ public class ClientDAO {
                 .fetch(ClientDAO::buildClient);
     }
 
-    public List<Client> getAllByAgeElderWithGender(LocalDate birthdate, Gender gender) {
+    public List<Client> getElderThen(LocalDate birthdate, Gender gender) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
@@ -113,7 +107,7 @@ public class ClientDAO {
                 .fetch(ClientDAO::buildClient);
     }
 
-    public List<Client> getAllByAgeYounger(LocalDate birthdate) {
+    public List<Client> getYoungerThen(LocalDate birthdate) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
@@ -121,13 +115,26 @@ public class ClientDAO {
                 .fetch(ClientDAO::buildClient);
     }
 
-    public List<Client> getAllByAgeYoungerWithGender(LocalDate birthdate, Gender gender) {
+    public List<Client> getYoungerThen(LocalDate birthdate, Gender gender) {
         return context
                 .select(CLIENT_FIELDS)
                 .from(CLIENTS)
                 .where(CLIENTS.GENDER.eq(String.valueOf(gender)).and(CLIENTS.BIRTHDATE.ge(birthdate)))
                 .fetch(ClientDAO::buildClient);
     }
+
+    public List<Client> getPensioners(LocalDate now) {
+        return context
+                .select(CLIENT_FIELDS)
+                .from(CLIENTS)
+                .where(CLIENTS.GENDER.eq("MALE")
+                        .and(CLIENTS.BIRTHDATE.le(now.minusYears(maleAgeThreshold()))))
+
+                .and(CLIENTS.GENDER.eq("FEMALE")
+                        .and(CLIENTS.BIRTHDATE.le(now.minusYears(femaleAgeThreshold()))))
+                .fetch(ClientDAO::buildClient);
+    }
+
 
     public List<Client> getAllWithBirthdayOnDate(LocalDate date) {
         return context

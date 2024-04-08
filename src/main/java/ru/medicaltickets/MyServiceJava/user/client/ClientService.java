@@ -1,41 +1,65 @@
 package ru.medicaltickets.MyServiceJava.user.client;
 
 import org.springframework.http.ResponseEntity;
+import ru.medicaltickets.MyServiceJava.user.doctor.Doctor;
+import ru.medicaltickets.MyServiceJava.user.doctor.enums.DoctorSpecialty;
+import ru.medicaltickets.MyServiceJava.user.enums.Gender;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class ClientService {
     private final ClientDAO clientDAO;
 
-    public ClientService(ClientDAO userDAO) {
-        this.clientDAO = userDAO;
+    public ClientService(ClientDAO clientDAO) {
+        this.clientDAO = clientDAO;
     }
 
-/*
-----------------------------    GLOBAL METHODS    ----------------------------
-*/
-
-    private boolean isClientExist(Long userID) {
-        return clientDAO.isExist(userID);
+    public Client getSingle(Long doctorID) {
+        return clientDAO.getSingle(doctorID);
     }
 
-/*
-----------------------------    GET METHODS    ----------------------------
-*/
-
-    public Client getUser(Long userID) {
-        return clientDAO.getBy(userID);
+    public List<Client> getByFullName(String fullName) {
+        return clientDAO.getByFullName(fullName);
     }
 
-    public List<Client> getAllUsers() {
-        return clientDAO.getAll();
+    public List<Client> getByLastNameAndGender(String lastName, Gender gender) {
+        return clientDAO.getByLastNameAndGender(lastName, gender);
     }
 
-/*
-----------------------------    POST METHODS    ----------------------------
-*/
+    public List<Client> getByGenderAndBirthdate (Gender gender, LocalDate birthdate) {
+        return clientDAO.getByGenderAndBirthdate(gender, birthdate);
+    }
 
-    public ResponseEntity<?> postUser() {
-        return null;
+    public List<Client> getByFullNameAndBirthdate (String fullName, LocalDate birthdate) {
+        return clientDAO.getByFullNameAndBirthdate(fullName, birthdate);
+    }
+
+    public List<Client> getElderThen (LocalDate birthdate) {
+        return clientDAO.getElderThen(birthdate);
+    }
+
+    public List<Client> getElderThen (LocalDate birthdate, Gender gender) {
+        return clientDAO.getElderThen(birthdate, gender);
+    }
+
+    public List<Client> getYoungerThen (LocalDate birthdate) {
+        return clientDAO.getYoungerThen(birthdate);
+    }
+
+    public List<Client> getYoungerThen (LocalDate birthdate, Gender gender) {
+        return clientDAO.getYoungerThen(birthdate, gender);
+    }
+
+    public List<Client> getPensioners() {
+        return clientDAO.getPensioners(LocalDate.now());
+    }
+
+    public int update(Client client) {
+        return clientDAO.update(client);
+    }
+
+    public int post(Client client) {
+        return clientDAO.post(client);
     }
 }

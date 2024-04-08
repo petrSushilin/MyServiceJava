@@ -6,14 +6,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(value = "core.clients.pension-age-threshold")
 public class ClientProperties {
-    private int maleAgeThreshold;
-    private int femaleAgeThreshold;
+    private static int maleAgeThreshold;
+    private static int femaleAgeThreshold;
 
-    public int maleAgeThreshold() {
+    public static int maleAgeThreshold() {
         return maleAgeThreshold;
     }
 
-    public int femaleAgeThreshold() {
+    public static int femaleAgeThreshold() {
         return femaleAgeThreshold;
     }
 }

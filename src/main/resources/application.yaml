@@ -7,8 +7,8 @@ spring:
 core:
   clients:
     pension-age-threshold:
-      male: 63
-      female: 58
+      maleAgeThreshold: 63
+      femaleAgeThreshold: 58
 
 spring.security.user.name: admin
 spring.security.user.password: password

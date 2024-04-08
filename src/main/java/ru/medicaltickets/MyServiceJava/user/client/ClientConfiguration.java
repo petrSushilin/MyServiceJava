@@ -1,12 +1,9 @@
 package ru.medicaltickets.MyServiceJava.user.client;
 
 import org.jooq.DSLContext;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ru.medicaltickets.MyServiceJava.user.client.handlers.GetAllClientsHandler;
-import ru.medicaltickets.MyServiceJava.user.client.handlers.GetClientHandler;
-import ru.medicaltickets.MyServiceJava.user.client.handlers.PostClientHandler;
+import ru.medicaltickets.MyServiceJava.user.client.handlers.*;
 
 @Configuration
 public class ClientConfiguration {
@@ -21,23 +18,62 @@ public class ClientConfiguration {
     }
 
     @Bean
-    public GetAllClientsHandler getAllClientsHandler(ClientService clientService) {
-        return new GetAllClientsHandler(clientService);
+    public GetByFullNameHandler getByFullNameHandler(ClientService clientService) {
+        return new GetByFullNameHandler(clientService);
     }
 
     @Bean
-    public GetClientHandler getClientHandler(ClientService clientService) {
-        return new GetClientHandler(clientService);
+    public GetByGenderAndBirthdateHandler getByGenderAndBirthdateHandler (ClientService clientService) {
+        return new GetByGenderAndBirthdateHandler(clientService);
     }
 
     @Bean
-    public PostClientHandler postClientHandler(ClientService clientService) {
+    public GetByLastNameAndGenderHandler getByLastNameAndGenderHandler (ClientService clientService) {
+        return new GetByLastNameAndGenderHandler(clientService);
+    }
+
+    @Bean
+    public GetElderThenHandler getElderThenHandler (ClientService clientService) {
+        return new GetElderThenHandler(clientService);
+    }
+
+    @Bean
+    public GetPensionersHandler getPensionersHandler (ClientService clientService) {
+        return new GetPensionersHandler(clientService);
+    }
+
+    @Bean
+    public GetSingleClientHandler getClientHandler (ClientService clientService) {
+        return new GetSingleClientHandler(clientService);
+    }
+
+    @Bean
+    public GetYoungerThenHandler getYoungerThenHandler (ClientService clientService) {
+        return new GetYoungerThenHandler(clientService);
+    }
+
+    @Bean
+    public PostClientHandler postClientHandler (ClientService clientService) {
         return new PostClientHandler(clientService);
     }
 
     @Bean
-    public ClientController clientController(GetAllClientsHandler getAllClientsHandler, GetClientHandler getClientHandler,
-                                             PostClientHandler postClientHandler) {
-        return new ClientController(getAllClientsHandler, getClientHandler, postClientHandler);
+    public UpdateClientHandler updateClientHandler (ClientService clientService) {
+        return new UpdateClientHandler(clientService);
+    }
+
+    @Bean
+    public ClientController clientController (GetByFullNameHandler getByFullNameHandler,
+                                              GetByGenderAndBirthdateHandler getByGenderAndBirthdateHandler,
+                                              GetByLastNameAndGenderHandler getByLastNameAndGenderHandler,
+                                              GetElderThenHandler getElderThenHandler,
+                                              GetPensionersHandler getPensionersHandler,
+                                              GetSingleClientHandler getSingleClientHandler,
+                                              GetYoungerThenHandler getYoungerThenHandler,
+                                              PostClientHandler postClientHandler,
+                                              UpdateClientHandler updateClientHandler) {
+        return new ClientController(getByFullNameHandler, getByGenderAndBirthdateHandler, getByLastNameAndGenderHandler,
+                getElderThenHandler, getPensionersHandler, getSingleClientHandler, getYoungerThenHandler,
+                postClientHandler, updateClientHandler);
     }
 }

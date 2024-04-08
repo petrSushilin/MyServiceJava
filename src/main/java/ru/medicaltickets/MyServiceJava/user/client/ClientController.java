@@ -1,32 +1,101 @@
 package ru.medicaltickets.MyServiceJava.user.client;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.medicaltickets.MyServiceJava.user.client.handlers.GetAllClientsHandler;
-import ru.medicaltickets.MyServiceJava.user.client.handlers.GetClientHandler;
-import ru.medicaltickets.MyServiceJava.user.client.handlers.PostClientHandler;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import ru.medicaltickets.MyServiceJava.user.client.handlers.*;
 
 @RequestMapping("client")
 @RestController
 public class ClientController {
-    private final GetAllClientsHandler getAllUsersHandler;
-    private final GetClientHandler getUserHandler;
+    private final GetByFullNameHandler getByFullNameHandler;
+    private final GetByGenderAndBirthdateHandler getByGenderAndBirthdateHandler;
+    private final GetByLastNameAndGenderHandler getByLastNameAndGenderHandler;
+    private final GetElderThenHandler getElderThenHandler;
+    private final GetPensionersHandler getPensionersHandler;
+    private final GetSingleClientHandler getSingleClientHandler;
+    private final GetYoungerThenHandler getYoungerThenHandler;
     private final PostClientHandler postClientHandler;
+    private final UpdateClientHandler updateClientHandler;
 
-    public ClientController(GetAllClientsHandler getAllUsersHandler, GetClientHandler getUserHandler,
-                            PostClientHandler postClientHandler) {
-        this.getAllUsersHandler = getAllUsersHandler;
-        this.getUserHandler = getUserHandler;
+    public ClientController(GetByFullNameHandler getByFullNameHandler,
+                            GetByGenderAndBirthdateHandler getByGenderAndBirthdateHandler,
+                            GetByLastNameAndGenderHandler getByLastNameAndGenderHandler,
+                            GetElderThenHandler getElderThenHandler,
+                            GetPensionersHandler getPensionersHandler,
+                            GetSingleClientHandler getSingleClientHandler,
+                            GetYoungerThenHandler getYoungerThenHandler,
+                            PostClientHandler postClientHandler,
+                            UpdateClientHandler updateClientHandler) {
+        this.getByFullNameHandler = getByFullNameHandler;
+        this.getByGenderAndBirthdateHandler = getByGenderAndBirthdateHandler;
+        this.getByLastNameAndGenderHandler = getByLastNameAndGenderHandler;
+        this.getElderThenHandler = getElderThenHandler;
+        this.getPensionersHandler = getPensionersHandler;
+        this.getSingleClientHandler = getSingleClientHandler;
+        this.getYoungerThenHandler = getYoungerThenHandler;
         this.postClientHandler = postClientHandler;
+        this.updateClientHandler = updateClientHandler;
     }
 
-//    @GetMapping("/all")
-//    public ResponseEntity<?> getAllUsers() {
-//        return getAllUsersHandler.handle();
-//    }
+    @GetMapping("/client{clientID}")
+    public ResponseEntity<?> getSingle(@PathVariable("clientID") String clientID) {
+        return getSingleClientHandler.handle(clientID);
+    }
 
-//    @GetMapping("/{userID}")
-//    public ResponseEntity<?> getUser(@RequestParam Long userID) {
-//        return getUserHandler.handle(userID);
-//    }
+    @GetMapping("/{firstName}.{lastName}")
+    public ResponseEntity<?> getByFullName(@Valid @PathVariable("firstName") String firstName,
+                                           @Valid @PathVariable("lastName") String lastName) {
+        return getByFullNameHandler.handle(firstName, lastName);
+    }
+
+    @GetMapping("/{gender}/birthdate")
+    public ResponseEntity<?> getByGenderAndBirthdate(@PathVariable("gender") String gender,
+                                                     @RequestParam String birthdate) {
+        return getByGenderAndBirthdateHandler.handle(gender, birthdate);
+    }
+
+    @GetMapping("/{gender}/{lastName}")
+    public ResponseEntity<?> getByLastNameAndGender(@Valid @PathVariable("lastName") String lastName,
+                                                    @PathVariable("gender") String gender) {
+        return getByLastNameAndGenderHandler.handle(lastName, gender);
+    }
+
+    @GetMapping("/elder/{birthdate}")
+    public ResponseEntity<?> getElderThen(@Valid @PathVariable("birthdate") String birthdate) {
+        return getElderThenHandler.handle(birthdate);
+    }
+
+    @GetMapping("/elder/{gender}/{birthdate}")
+    public ResponseEntity<?> getElderThen(@PathVariable("gender") String gender,
+                                          @Valid @PathVariable("birthdate") String birthdate) {
+        return getElderThenHandler.handle(gender, birthdate);
+    }
+
+    @GetMapping("/younger/{birthdate}")
+    public ResponseEntity<?> getYoungerThen(@Valid @PathVariable("birthdate") String birthdate) {
+        return getYoungerThenHandler.handle(birthdate);
+    }
+
+    @GetMapping("/younger/{gender}/{birthdate}")
+    public ResponseEntity<?> getYoungerThen(@PathVariable("gender") String gender,
+                                            @Valid @PathVariable("birthdate") String birthdate) {
+        return getYoungerThenHandler.handle(gender, birthdate);
+    }
+
+    @GetMapping("/pensioners")
+    public ResponseEntity<?> getPensioners() {
+        return getPensionersHandler.handle();
+    }
+
+    @PostMapping("/new")
+    public ResponseEntity<?> post(@Valid @RequestBody Client client) {
+        return postClientHandler.handle(client);
+    }
+
+    @PostMapping("/client{clientID}")
+    public ResponseEntity<?> update(@PathVariable("clientID") String clientID,
+                                    @RequestBody Client client) {
+        return updateClientHandler.handle(clientID, client);
+    }
 }
