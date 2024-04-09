@@ -41,7 +41,7 @@ public class ClinicDAO {
                 .build();
     }
 
-    public Clinic getBy(Long ID) {
+    public Clinic getSingle(Long ID) {
         return context
                 .select(CLINIC_FIELDS)
                 .from(CLINICS)
@@ -49,7 +49,7 @@ public class ClinicDAO {
                 .fetchSingle(ClinicDAO::buildClinic);
     }
 
-    public List<Clinic> getByParams(String officialName) {
+    public List<Clinic> getByName(String officialName) {
         return context
                 .select(CLINIC_FIELDS)
                 .from(CLINICS)
@@ -57,7 +57,7 @@ public class ClinicDAO {
                 .fetch(ClinicDAO::buildClinic);
     }
 
-    public List<Clinic> getByParams(Region region) {
+    public List<Clinic> getByLocation(Region region) {
         return context
                 .select(CLINIC_FIELDS)
                 .from(CLINICS)
@@ -65,19 +65,12 @@ public class ClinicDAO {
                 .fetch(ClinicDAO::buildClinic);
     }
 
-    public List<Clinic> getByParams(Region region, City city) {
+    public List<Clinic> getByLocation(Region region, City city) {
         return context
                 .select(CLINIC_FIELDS)
                 .from(CLINICS)
                 .where(CLINICS.REGION.eq(String.valueOf(region))
                         .and(CLINICS.CITY.eq(String.valueOf(city))))
-                .fetch(ClinicDAO::buildClinic);
-    }
-
-    public List<Clinic> getAll() {
-        return context
-                .select(CLINIC_FIELDS)
-                .from(CLINICS)
                 .fetch(ClinicDAO::buildClinic);
     }
 
